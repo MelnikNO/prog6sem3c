@@ -1,0 +1,4 @@
+Method,Name,Error,Occurrences
+GET,/health,"ReadTimeout(ReadTimeoutError(""HTTPConnectionPool(host='localhost', port=8888): Read timed out. (read timeout=2)""))",140
+GET,/cpu_fixed,CatchResponseError('Status code: 0'),16
+GET,/cpu?n=15000000,CatchResponseError('Status code: 0'),12

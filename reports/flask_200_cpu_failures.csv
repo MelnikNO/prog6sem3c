@@ -1,0 +1,53 @@
+Method,Name,Error,Occurrences
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63312480>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e1f70>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa633111f0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635fde50>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e2c30>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635fcbc0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632df890>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa6355b1a0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632debd0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632dd250>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63311820>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632dd8b0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63311e50>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632df230>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632dfef0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e0c50>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63313710>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ReadTimeout(ReadTimeoutError(""HTTPConnectionPool(host='localhost', port=5000): Read timed out. (read timeout=2)""))",60
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635fd1f0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63312ab0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63310bc0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63310590>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e05f0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e3f20>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635bb380>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e38f0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635598e0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635fc590>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63558650>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa633130e0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635bb950>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635fd820>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa6355a540>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa6355ab70>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632de570>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e12b0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa6355b7d0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e25d0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635592b0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632bffb0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/cpu_fixed,CatchResponseError('Status code: 0'),1817
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e1910>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectionRefusedError(10061, '[WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.')",2
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632ddf10>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63558c80>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63559f10>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635e3290>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/cpu?n=15000000,CatchResponseError('Status code: 0'),1774
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa63313d40>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632dc5c0>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa635bbf50>, 'Connection to localhost timed out. (connect timeout=2)')",1
+GET,/health,"ConnectTimeoutError(<HTTPConnection(host='localhost', port=5000) at 0x1fa632dcbf0>, 'Connection to localhost timed out. (connect timeout=2)')",1
