@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск публикаций в Crossref</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .result-card {
+            transition: transform 0.2s;
+            height: 100%;
+        }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .affiliation-badge {
+            font-size: 0.85rem;
+        }
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h4 mb-0"><i class="bi bi-search"></i> Поиск научных публикаций (Crossref)</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="searchForm">
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Автор (фамилия и/или имя)</label>
+                                <input type="text" class="form-control" id="author" name="author"
+                                       placeholder="Пример: Иванов Иван">
+                                <div class="form-text">Поиск по полю query.author в Crossref</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Название статьи</label>
+                                <input type="text" class="form-control" id="title" name="title"
+                                       placeholder="Пример: Machine Learning in Medicine">
+                                <div class="form-text">Поиск по полю query.title</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" id="searchBtn">
+                                <i class="bi bi-file-text"></i> Найти публикации
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Индикатор загрузки -->
+                <div class="loader" id="loader">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Загрузка...</span>
+                    </div>
+                    <p class="mt-2">Асинхронный запрос к API Crossref...</p>
+                </div>
+
+                <!-- Контейнер для результатов -->
+                <div id="resultsContainer" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Обработка отправки формы
+        document.getElementById('searchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const author = document.getElementById('author').value.trim();
+            const title = document.getElementById('title').value.trim();
+
+            if (!author && !title) {
+                showError('Заполните хотя бы одно поле: автор или название');
+                return;
+            }
+
+            // Показываем лоадер, скрываем старые результаты
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('resultsContainer').innerHTML = '';
+            document.getElementById('searchBtn').disabled = true;
+
+            // Формируем FormData и отправляем POST-запрос к Flask
+            const formData = new FormData();
+            if (author) formData.append('author', author);
+            if (title) formData.append('title', title);
+
+            try {
+                const response = await fetch('/search', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.results && data.results.length > 0) {
+                        displayResults(data.results);
+                    } else {
+                        showError('По вашему запросу ничего не найдено');
+                    }
+                } else {
+                    showError(data.error || 'Ошибка при выполнении поиска');
+                }
+            } catch (err) {
+                showError('Ошибка сети: ' + err.message);
+            } finally {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('searchBtn').disabled = false;
+            }
+        });
+
+        // Отображение результатов в адаптивной сетке Bootstrap
+        function displayResults(results) {
+            const container = document.getElementById('resultsContainer');
+            let html = `<h4 class="mb-3">Найдено публикаций: ${results.length}</h4>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">`;
+
+            results.forEach(pub => {
+                html += `
+                    <div class="col">
+                        <div class="card result-card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="bi bi-journal-bookmark-fill"></i> ${escapeHtml(pub.title.substring(0, 100))}
+                                </h5>
+                                <p class="card-text mb-1">
+                                    <strong><i class="bi bi-person"></i> Автор:</strong> ${escapeHtml(pub.first_author)}
+                                </p>
+                                <p class="card-text mb-1">
+                                    <strong><i class="bi bi-journal"></i> Журнал/Сборник:</strong> ${escapeHtml(pub.journal)}
+                                </p>
+                                <p class="card-text mb-1">
+                                    <strong><i class="bi bi-calendar"></i> Год:</strong> ${escapeHtml(pub.year)}
+                                </p>
+                                <p class="card-text">
+                                    <strong><i class="bi bi-building"></i> Аффилиация:</strong>
+                                    <span class="badge bg-secondary affiliation-badge">${escapeHtml(pub.affiliation)}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function showError(message) {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = `
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i> ${escapeHtml(message)}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+        }
+
+        // Простейшая защита от XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+                return c;
+            });
+        }
+
+        const bsAlert = new bootstrap.Alert;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
