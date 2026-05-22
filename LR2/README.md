@@ -105,23 +105,10 @@ Cython-версия функции с аннотациями типов C (`cdef
 
 **Сгенерированный файлы:** 
 
-- iteration4_cython
-- iteration4_cython.cp312-win_amd64
-- iteration4_cython
-- iteration4_cython.pyx
-
-
-
-> 📸 **Скриншот 5:** Вывод `benchmark_cython()`
-> 
-> *Вставьте сюда скриншот:*
-> ```
-> ИТЕРАЦИЯ 4: CYTНON vs ЧИСТЫЙ PYTHON
-> Количество точек: 1000000
-> Чистый Python: 1.7220 сек
-> Cython: 0.4523 сек
-> Ускорение: 3.81x
-> ```
+- [iteration4_cython](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration4_cython.c)
+- [iteration4_cython.cp312-win_amd64](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration4_cython.cp312-win_amd64.pyd)
+- [iteration4_cython](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration4_cython.html)
+- [iteration4_cython.pyx](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration4_cython.pyx)
 
 ---
 
@@ -135,38 +122,12 @@ Cython-версия функции с аннотациями типов C (`cdef
 - Отключение GIL (`nogil=True`)
 - Автоматическая редукция результатов (`total_inside += inside`)
 
-**Сгенерированный C-файл:** `iteration5_nogil.c` (подтверждает компиляцию в параллельный OpenMP-код)
+**Сгенерированный файлы:** 
 
-**Результаты замеров (функция `benchmark_nogil()`):**
-
-| Потоков (prange) | Время (сек) | Процессов | Время (сек) |
-|------------------|-------------|-----------|-------------|
-| 2 | 0.85 | 2 | 1.51 |
-| 4 | 0.45 | 4 | 1.01 |
-| 6 | 0.32 | 6 | 0.78 |
-
-**Вывод:** noGIL-версия на Cython с `prange` значительно быстрее многопроцессной версии:
-- **Отсутствуют накладные расходы** на создание процессов и сериализацию данных
-- **Разделяемая память** и истинная многопоточность (обход GIL)
-- **Автоматическая векторизация** и оптимизации компилятора OpenMP
-
-> 📸 **Скриншот 6:** Вывод `benchmark_nogil()`
-> 
-> *Вставьте сюда скриншот:*
-> ```
-> ИТЕРАЦИЯ 5: noGIL vs ПРОЦЕССЫ
-> Количество точек: 10000000
-> 
-> noGIL версия (Cython с prange)
-> Потоков = 2: 0.8521 сек
-> Потоков = 4: 0.4532 сек
-> Потоков = 6: 0.3215 сек
-> 
-> --- Процессы (ProcessPoolExecutor) ---
-> Процессов = 2: 1.5100 сек
-> Процессов = 4: 1.0060 сек
-> Процессов = 6: 0.7758 сек
-> ```
+- [iteration5_nogil](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration5_nogil.c)
+- [iteration5_nogil.cp312-win_amd64](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration5_nogil.cp312-win_amd64.pyd)
+- [iteration5_nogil](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration5_nogil.html)
+- [iteration5_nogil](https://github.com/MelnikNO/prog6sem3c/blob/main/LR2/iteration5_nogil.pyx)
 
 ---
 
@@ -174,62 +135,5 @@ Cython-версия функции с аннотациями типов C (`cdef
 
 **Файл:** `test_pi.py`
 
-Реализованы тесты для всех версий функции:
-- `test_range_sequential` / `test_range_threads` / `test_range_processes` — проверка, что результат в диапазоне (3.0, 3.2)
-- `test_accuracy_sequential` / `test_accuracy_threads` / `test_accuracy_processes` — проверка точности (ошибка < 1%)
+<img width="1440" height="329" alt="image" src="https://github.com/user-attachments/assets/43020d5b-46f4-453e-888e-83d8ed46acfb" />
 
-> 📸 **Скриншот 7:** Выполнение `python -m unittest test_pi.py -v`
-> 
-> *Вставьте сюда скриншот:*
-> ```
-> test_accuracy_processes (test_pi.TestEstimatePi) ... ok
-> test_accuracy_sequential (test_pi.TestEstimatePi) ... ok
-> test_accuracy_threads (test_pi.TestEstimatePi) ... ok
-> test_range_processes (test_pi.TestEstimatePi) ... ok
-> test_range_sequential (test_pi.TestEstimatePi) ... ok
-> test_range_threads (test_pi.TestEstimatePi) ... ok
-> 
-> ----------------------------------------------------------------------
-> Ran 6 tests in 2.345s
-> 
-> OK
-> ```
-
----
-
-## Выводы по работе
-
-### Сравнение производительности (n_points = 1_000_000)
-
-| Метод | Время (сек) | Ускорение |
-|-------|-------------|-----------|
-| Базовый Python | 1.7220 | 1.00x |
-| Потоки (8) | 1.4324 | 1.20x |
-| Процессы (6) | 0.7758 | 2.22x |
-| Cython | 0.4523 | 3.81x |
-| noGIL + OpenMP (6) | 0.3215 | 5.36x |
-
-### Ключевые выводы:
-
-1. **GIL — основное узкое место** стандартного Python для CPU-интенсивных задач. Потоки не дают ускорения.
-
-2. **Процессы** обходят GIL, но имеют накладные расходы на создание и IPC. Дают хорошее ускорение (2-3x).
-
-3. **Cython** позволяет компилировать Python-код в C, ускоряя его в 3-5 раз даже без параллелизации.
-
-4. **noGIL + OpenMP** — самый эффективный метод. Позволяет использовать истинную многопоточность с разделяемой памятью, обеспечивая ускорение до 5-6 раз на 6 потоках.
-
-### Ответ на дополнительный вопрос (*):
-
-**Нужны ли мьютексы/семафоры в noGIL-версии?**
-
-Нет, не нужны. Использование `reduction(+:total_inside)` в `prange` заставляет компилятор OpenMP автоматически создавать локальные копии переменной для каждого потока, а затем безопасно суммировать их. Явная синхронизация (мьютекс) привела бы к:
-- Постоянному захвату GIL
-- Простоям потоков в очереди
-- Производительности хуже, чем у последовательной версии
-
-**Python 3.14 (nogil):** Если GIL будет убран, потоки (Итерация 2) начнут давать реальное ускорение, а разница между `ThreadPoolExecutor` и `prange` будет определяться только накладными расходами на создание потоков.
-
----
-
-## Структура проекта
