@@ -8,3 +8,5 @@
 ## Лабораторная работа 1. Экспериментальная группа - [ЭкспЛР1](https://github.com/MelnikNO/prog6sem3c/tree/main/exp_LR1#readme)
 
 ## Лабораторная работа 2. Экспериментальная группа - [ЭкспЛР2](https://github.com/MelnikNO/prog6sem3c/tree/main/exp_LR2#readme)
+
+## Лабораторная работа 3. Экспериментальная группа - [ЭкспЛР3](https://github.com/MelnikNO/prog6sem3c/tree/main/exp_LR3#readme)
