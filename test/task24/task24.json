@@ -1,0 +1,54 @@
+{
+  "name": "Habr Articles Parser (Webdev Hub)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "https://habr.com/ru/hubs/webdev/articles/",
+        "method": "GET",
+        "authentication": "none",
+        "sendQuery": false,
+        "sendHeaders": false,
+        "sendBody": false
+      },
+      "id": "http-request",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [250, 0]
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "from bs4 import BeautifulSoup\n\ndef parse_articles(html):\n    soup = BeautifulSoup(html, 'html.parser')\n    selectors = [\n        'h2.tm-title a.tm-title__link',\n        '.tm-article-snippet__title a',\n        'article .tm-title a',\n        'a.tm-title__link',\n        '.post__title a',\n        '.tm-article-title a'\n    ]\n    title_elements = []\n    for selector in selectors:\n        title_elements = soup.select(selector)\n        if title_elements:\n            break\n    articles = []\n    for element in title_elements[:5]:\n        title = element.get_text(strip=True)\n        if title:\n            articles.append({\"title\": title})\n    if not articles:\n        for heading in soup.select('h2')[:5]:\n            title = heading.get_text(strip=True)\n            if title and len(title) > 5:\n                articles.append({\"title\": title})\n    return articles\n\ninput_data = _items[0]['json']\nhtml_content = input_data[\"data\"]\nresult = parse_articles(html_content)\nreturn [{\"json\": {\"articles\": result}}]"
+      },
+      "id": "code-python",
+      "name": "Code in Python",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 0]
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [[{"node": "HTTP Request", "type": "main", "index": 0}]]
+    },
+    "HTTP Request": {
+      "main": [[{"node": "Code in Python", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "export-1",
+  "tags": []
+}
